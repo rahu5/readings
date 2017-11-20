@@ -1,0 +1,10 @@
+# Dirs and files not to tracked by git
+.DS_STORE
+*.log
+node_modules
+package-lock.json
+.nyc_output
+coverage
+logs
+public/images
+docs

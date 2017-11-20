@@ -1,0 +1,35 @@
+{
+  "name": "Readings",
+  "version": "1.0.0",
+  "description": "Store and fetch readings from an IoT sensor.",
+  "main": "server/index.js",
+  "scripts": {
+    "test": "mocha server/**/*.test.js server/api/**/*.test.js mocha.conf.js",
+    "start": "nodemon server",
+    "lint": "eslint server/**/**/*.js server/**/*.js",
+    "coverage": "nyc --reporter=lcov --reporter=text-lcov npm test",
+    "doc": "jsdoc -c jsdoc.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rahu5/readings.git"
+  },
+  "author": "Rahul Yadav",
+  "license": "MIT",
+  "dependencies": {
+    "babel-runtime": "^6.26.0",
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "morgan": "^1.9.0"
+  },
+  "devDependencies": {
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-register": "^6.26.0",
+    "chai": "^4.1.2",
+    "eslint": "^4.10.0",
+    "mocha": "^4.0.1",
+    "nyc": "^11.2.1",
+    "supertest": "^3.0.0"
+  }
+}
