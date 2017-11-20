@@ -1,11 +1,13 @@
 'use strict';
 
 import { Router } from 'express';
-import { authenticate } from '../../auth/auth.service.js';
-import * as controller from './patch.controller.js';
+import * as controller from './readings.controller.js';
 
 let	router = new Router();
+
 //	All routes of patch
-router.patch('/apply', authenticate(), controller.applyPatch);
+router.post('/add', controller.addReading);
+router.post('/get', controller.getAllByDate);
+router.post('/agg', controller.getAggByDate);
 
 module.exports = router;

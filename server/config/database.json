@@ -1,0 +1,38 @@
+{
+	"development": {
+		"username": "postgres",
+		"password": "cronj",
+		"database": "iot",
+		"host": "localhost",
+		"dialect": "postgres",
+		"define": {
+			"underscored": false,
+			"freezeTableName": true
+		},
+		"logging": false
+	},
+	"test": {
+		"username": "postgres",
+		"password": "cronj",
+		"database": "iot",
+		"host": "127.0.0.1",
+		"dialect": "postgres",
+		"define": {
+			"underscored": false,
+			"freezeTableName": true
+		},
+		"logging": false
+	},
+	"production": {
+		"username": "postgres",
+		"password": "cronj",
+		"database": "iot",
+		"host": "127.0.0.1",
+		"dialect": "postgres",
+		"define": {
+			"underscored": false,
+			"freezeTableName": true
+		},
+		"logging": false
+	}
+}

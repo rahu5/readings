@@ -15,8 +15,7 @@ let config = {
 	'HOST' : 'localhost',
 	'PORT' : 4000,
 	'PROTOCOL' : 'http',
-	'SEED' : false,
-	'JWT_SECRET' : '%48secret5$%by&8rahul543$'
+	'SEED' : false
 };
 
 config.SERVER = config.PROTOCOL + '://' + config.HOST + ':' + config.PORT;

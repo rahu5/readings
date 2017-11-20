@@ -2,10 +2,10 @@
 /**
  *  @module Patch
  */
+import db from '../../models';
+import logger from '../../utils/logger.js';
 import * as common from '../../utils/common.js';
 import * as strings from '../../utils/strings.js';
-import jsonpatch from 'jsonpatch';
-import logger from '../../utils/logger.js';
 
 /**
  *  Applies patch object to the given object in request body.
@@ -13,24 +13,87 @@ import logger from '../../utils/logger.js';
  *  @param {Object} req - Http request object
  *  @param {Object} res - Http response object
  */
-export function applyPatch(req, res) {
+export function addReading(req, res) {
 
 	// Return error if the required keys are not in request
-	if(common.checkRequiredKeys(req, ['docObj', 'patchObj'])){
+	if(common.checkRequiredKeys(req, ['reading', 'timestamp', 'sensorType'])){
+		return common.sendResponse(res, 400, null, null, strings.error.MISSING_FIELDS);
+	}
+	let reading = req.body.reading;
+	let timestamp = new Date(parseInt(req.body.timestamp));
+	let sensorType = req.body.sensorType;
+
+	db.readings.addOne(reading, timestamp, sensorType)
+		.then(status => {
+			return common.sendResponse(res, 200, strings.message.ADDED);
+		})
+		.catch((err) => {
+			logger.error(err);
+			return common.sendResponse(res, 500, null, null, strings.error.INTERNAL_ERROR);
+		});
+}
+
+/**
+ *  Applies patch object to the given object in request body.
+ *	Sends patched object if given patch object is valid otherwise sends error message.
+ *  @param {Object} req - Http request object
+ *  @param {Object} res - Http response object
+ */
+export function getAllByDate(req, res) {
+
+	// Return error if the required keys are not in request
+	if(common.checkRequiredKeys(req, ['fromDate', 'toDate'])){
+		return common.sendResponse(res, 400, null, null, strings.error.MISSING_FIELDS);
+	}
+	let dateRange = {
+		from : new Date(parseInt(req.body.fromDate)),
+		to : new Date(parseInt(req.body.toDate))
+	};
+	let sensorType = req.body.sensorType;
+
+	logger.info(dateRange);
+	db.readings.findBetween(dateRange, sensorType)
+		.then(list => {
+			return common.sendResponse(res, 200, null, list);
+		})
+		.catch((err) => {
+			logger.error(err);
+			return common.sendResponse(res, 500, null, null, strings.error.INTERNAL_ERROR);
+		});
+}
+
+/**
+ *  Applies patch object to the given object in request body.
+ *	Sends patched object if given patch object is valid otherwise sends error message.
+ *  @param {Object} req - Http request object
+ *  @param {Object} res - Http response object
+ */
+export function getAggByDate(req, res) {
+
+	// Return error if the required keys are not in request
+	if(common.checkRequiredKeys(req, ['fromDate', 'toDate', 'agg'])){
 		return common.sendResponse(res, 400, null, null, strings.error.MISSING_FIELDS);
 	}
 
-	let patchedDoc;
-	try{
-		// Will throw error if patchObj is not valid
-		patchedDoc = jsonpatch.apply_patch(req.body.docObj, req.body.patchObj);
-	} catch (err) {
-		logger.error(err);
-		return common.sendResponse(res, 400, null, null, strings.error.SOMETHING);
+	let agg = req.body.agg.toLowerCase();
+
+	if(!(agg === 'max' || agg === 'min' || 'mean' || 'avg')){
+		return common.sendResponse(res, 400, null, null, strings.error.MISSING_FIELDS);
 	}
 
-	// Send patched document
-	return common.sendResponse(res, 200, null, {
-		patchedDoc
-	});
+	agg = agg === 'mean' ? 'avg' : agg;
+	let dateRange = {
+		from : new Date(parseInt(req.body.fromDate)),
+		to : new Date(parseInt(req.body.toDate))
+	};
+	let sensorType = req.body.sensorType;
+
+	db.readings.findAggBetween(agg, dateRange, sensorType)
+		.then(agg => {
+			return common.sendResponse(res, 200, null, agg);
+		})
+		.catch((err) => {
+			logger.error(err);
+			return common.sendResponse(res, 500, null, null, strings.error.INTERNAL_ERROR);
+		});
 }

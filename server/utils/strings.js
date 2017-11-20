@@ -11,8 +11,11 @@ module.exports = {
 		AUTH_ERROR : 'Authentication failed.',
 		INTERNAL_ERROR : 'Internal Server Error.',
 		WRONG_CREDENTIALS : 'Wrong credentials.',
-		SOMETHING  : 'Something went wrong.'
+		SOMETHING  : 'Something went wrong.',
+		MISSING_FIELDS : 'Insufficient fields to do the operation.',
+		PAGE404 : 'Path not found.'
 	},
 	message : {
+		ADDED : 'Reading added successfully.'
 	}
 };
