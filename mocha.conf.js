@@ -6,17 +6,9 @@ import config from './server/config';
 import logger from './server/utils/logger.js';
 
 before(function(done) {
-	let force = {
-		force : false
-	};
-	if(config.ENV === 'production'){
-		force.force = false;
-	}else{
-		force.force = true;
-	}
 	logger.info('Test suite started ...');
 
-	db.sequelize.sync(force)
+	db.sequelize.sync({force:true})
 		.then(() => {
 			done();
 		});
