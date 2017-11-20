@@ -12,8 +12,8 @@ import config from './config';
 import logger from './utils/logger.js';
 
 // Setup server
-let app = express();
-let server = http.createServer(app);
+var app = express();
+var server = http.createServer(app);
 
 //  Logging middleware
 require('./utils/morgan.js').default(app);

@@ -4,7 +4,7 @@
   "description": "Store and fetch readings from an IoT sensor.",
   "main": "server/index.js",
   "scripts": {
-    "test": "mocha server/**/*.test.js server/api/**/*.test.js mocha.conf.js",
+    "test": "mocha server/api/**/*.test.js mocha.conf.js",
     "start": "nodemon server",
     "lint": "eslint server/**/**/*.js server/**/*.js",
     "coverage": "nyc --reporter=lcov --reporter=text-lcov npm test",
