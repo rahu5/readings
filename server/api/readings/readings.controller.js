@@ -24,7 +24,7 @@ export function addReading(req, res) {
 	let sensorType = req.body.sensorType;
 
 	db.readings.addOne(reading, timestamp, sensorType)
-		.then(status => {
+		.then(() => {
 			return common.sendResponse(res, 200, strings.message.ADDED);
 		})
 		.catch((err) => {

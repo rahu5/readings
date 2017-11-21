@@ -1,26 +1,26 @@
-"use strict";
+'use strict';
 
 module.exports = (sequelize, DataTypes) => {
 	let Op = sequelize.Op;
-    const Readings = sequelize.define("readings", {
-        id : {
-            type : DataTypes.INTEGER,
-            primaryKey : true,
-            autoIncrement : true
-        },
-        reading : {
-            type : DataTypes.FLOAT,
-            allowNull : false
-        },
+	const Readings = sequelize.define('readings', {
+		id : {
+			type : DataTypes.INTEGER,
+			primaryKey : true,
+			autoIncrement : true
+		},
+		reading : {
+			type : DataTypes.FLOAT,
+			allowNull : false
+		},
 		timestamp : {
 			type : DataTypes.DATE,
 			allowNull : false
 		},
 		sensorType : {
 			type : DataTypes.STRING,
-            allowNull : false
+			allowNull : false
 		}
-    });
+	});
 
 	Readings.addOne = function(reading, timestamp, sensorType) {
 		return Readings.create({
@@ -79,5 +79,5 @@ module.exports = (sequelize, DataTypes) => {
 		});
 	};
 
-    return Readings;
-}
+	return Readings;
+};

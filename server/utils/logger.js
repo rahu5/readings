@@ -4,7 +4,6 @@
  */
 
 import winston from 'winston';
-import fs from 'fs';
 
 // Date format for logs
 const tsFormat = () => (new Date()).toLocaleTimeString();

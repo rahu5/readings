@@ -4,7 +4,6 @@
  */
 
 let app = require('../../');
-let strings = require('../../utils/strings.js');
 let request = require('supertest');
 let assert = require('chai').assert;
 let expect = require('chai').expect;
